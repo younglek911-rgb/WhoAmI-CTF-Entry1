@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Style CTF - Verifikasi Kunci</title>
+    <style>
+        /* Variabel CSS untuk Dark Mode ala GitHub */
+        :root {
+            --gh-bg-primary: #0d1117;          /* Background utama gelap */
+            --gh-bg-secondary: #161b22;       /* Background kontainer */
+            --gh-text-color: #c9d1d9;         /* Warna teks terang */
+            --gh-border-color: #30363d;       /* Warna border dan garis */
+            --gh-btn-primary: #238636;        /* Warna tombol hijau (success) */
+            --gh-btn-hover: #2ea043;
+            --gh-input-bg: #010409;           /* Background input */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            text-align: center;
+            padding-top: 50px;
+            background-color: var(--gh-bg-primary);
+            color: var(--gh-text-color);
+            transition: background-color 0.3s;
+        }
+        .container {
+            background: var(--gh-bg-secondary);
+            padding: 40px 30px;
+            border-radius: 6px;
+            border: 1px solid var(--gh-border-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            margin: auto;
+        }
+        h1 {
+            color: var(--gh-text-color);
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        #passwordInput {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid var(--gh-border-color);
+            border-radius: 6px;
+            background-color: var(--gh-input-bg);
+            color: var(--gh-text-color);
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar total */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: var(--gh-btn-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: var(--gh-btn-hover);
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Verifikasi Kunci Kota</h1>
+        
+        <p>Masukkan nama kota yang berhasil Anda pecahkan kodenya untuk membuka portal berikutnya.</p>
+
+        <input type="text" id="passwordInput" placeholder="Contoh: PALEMBANG" onkeydown="if(event.key === 'Enter') checkPassword()">
+        <button onclick="checkPassword()">VERIFIKASI & LANJUT</button>
+        
+        <p id="result"></p>
+
+    </div>
+
+    <script>
+        // JAWABAN TANTANGAN 1
+        const CORRECT_PASSWORD = "BREBES"; 
+        
+        // GANTI INI DENGAN URL TANTANGAN 2 ANDA
+        const NEXT_CHALLENGE_URL = "https://[URL-TANTANGAN-2-BARU-ANDA].com/index.html"; 
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.toUpperCase().trim(); // Tambahkan .trim() untuk menghilangkan spasi
+            const resultDiv = document.getElementById('result');
+
+            if (input === CORRECT_PASSWORD) {
+                resultDiv.style.backgroundColor = '#23863633'; /* Hijau transparan */
+                resultDiv.style.color = '#2ea043';
+                resultDiv.innerHTML = "✅ Kunci Benar! Mengarahkan Anda ke Tantangan Kedua...";
+                
+                // Mengarahkan pemain ke URL tantangan berikutnya setelah 2 detik
+                setTimeout(() => {
+                    window.location.href = NEXT_CHALLENGE_URL;
+                }, 2000); 
+                
+            } else {
+                resultDiv.style.backgroundColor = '#d2121233'; /* Merah transparan */
+                resultDiv.style.color = '#f85149';
+                resultDiv.innerHTML = "❌ Kunci Salah. Pastikan ejaan dan huruf kapital sudah benar!";
+            }
+        }
+    </script>
+</body>
+</html>
